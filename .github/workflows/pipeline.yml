@@ -25,10 +25,7 @@ jobs:
   uniffi-bindgen-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: x86_64-unknown-linux-gnu
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/uniffi-bindgen
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -36,10 +33,7 @@ jobs:
   ffi-library-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: x86_64-unknown-linux-gnu
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/ffi-library
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -68,10 +62,7 @@ jobs:
     if: github.repository == 'wireapp/core-crypto'
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: aarch64-apple-darwin
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/jvm
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -82,10 +73,7 @@ jobs:
   build-jvm-linux:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: x86_64-unknown-linux-gnu
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/jvm
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -96,10 +84,7 @@ jobs:
       - ffi-library-linux
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: x86_64-unknown-linux-gnu
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/bindings-kotlin-jvm
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -127,8 +112,7 @@ jobs:
     if: github.repository == 'wireapp/core-crypto'
     runs-on: self-hosted
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/bindings-swift
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -157,10 +141,7 @@ jobs:
   bindings-ts:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
-        with:
-          target: wasm32-unknown-unknown
+      - uses: actions/checkout@v6
       - uses: oven-sh/setup-bun@v2
         with:
           bun-version: latest
@@ -187,7 +168,7 @@ jobs:
 
     steps:
       - name: checkout repository
-        uses: actions/checkout@v5
+        uses: actions/checkout@v6
 
       - uses: ./.github/actions/setup-and-cache-rust
         with:
@@ -212,8 +193,7 @@ jobs:
     steps:
       # Needed for parity between github and self-hosted runner
       - run: brew install make
-      - uses: actions/checkout@v5
-      - uses: ./.github/actions/setup-and-cache-rust
+      - uses: actions/checkout@v6
       - uses: ./.github/actions/make/interop-build
         with:
           gh-token: ${{ secrets.GITHUB_TOKEN }}
@@ -248,7 +228,7 @@ jobs:
     runs-on: ubuntu-latest
     if: github.ref_type == 'tag'
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       - name: force-fetch the tag to work around actions/checkout#290
         run: git fetch -f origin ${{ github.ref }}:${{ github.ref }}

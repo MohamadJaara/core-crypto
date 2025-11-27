@@ -16,7 +16,7 @@ jobs:
   docs-swift:
     runs-on: macos-latest
     steps:
-      - uses: actions/checkout@v5
+      - uses: actions/checkout@v6
 
       # This is only needed because of our composite actions calling gmake on ios
       # to support our local runners without bash configs.
@@ -52,7 +52,7 @@ jobs:
       - name: install jazzy
         run: gem install jazzy
 
-      - uses: swift-actions/setup-swift@v2.3.0
+      - uses: swift-actions/setup-swift@v2.4.0
         with:
           swift-version: "6.0"
 

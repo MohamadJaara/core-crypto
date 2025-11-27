@@ -7,6 +7,8 @@ pub(crate) mod history_observer;
 pub(crate) mod logger;
 pub(crate) mod mls_transport;
 mod proteus;
+
+#[cfg(feature = "wasm")]
 mod randomness;
 
 use core_crypto::Session;
@@ -15,15 +17,6 @@ use crate::{
     CoreCryptoResult,
     database::{DatabaseMaybeArc, ToCc as _},
 };
-
-/// In uniffi, a vector is the natural way to communicate a byte slice
-pub(crate) type EntropySeed = Vec<u8>;
-
-#[expect(dead_code)]
-// Will be needed when implementing WPB-19570
-pub(crate) fn entropy_seed_map(e: EntropySeed) -> Vec<u8> {
-    e
-}
 
 /// CoreCrypto wraps around MLS and Proteus implementations and provides a transactional interface for each.
 #[derive(Debug, uniffi::Object)]
@@ -55,7 +48,7 @@ impl CoreCryptoFfi {
     }
 }
 
-#[cfg(feature = "idb")]
+#[cfg(feature = "wasm")]
 #[uniffi::export]
 impl CoreCryptoFfi {
     /// See [Session::close]
