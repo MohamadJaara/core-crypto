@@ -2,6 +2,12 @@
 package_name = "com.wire.crypto"
 cdylib_name = "core_crypto_ffi"
 
+[bindings.kotlin.custom_types.KotlinInstant]
+imports = ["kotlinx.datetime.Instant", "kotlinx.datetime.toKotlinInstant", "kotlinx.datetime.toJavaInstant"]
+type_name = "Instant"
+into_custom = "{}.toKotlinInstant()"
+from_custom = "{}.toJavaInstant()"
+
 [bindings.swift]
 cdylib_name = "core_crypto_ffi"
 ffi_module_name = "LibCoreCrypto"
