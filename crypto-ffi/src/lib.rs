@@ -26,6 +26,10 @@ mod error;
 mod identity;
 mod metadata;
 mod proteus;
+mod timestamp;
+
+#[cfg(not(target_family = "wasm"))]
+pub use timestamp::KotlinInstant;
 
 pub use bundles::{
     commit::CommitBundle, group_info::GroupInfoBundle, proteus_auto_prekey::ProteusAutoPrekeyBundle,
