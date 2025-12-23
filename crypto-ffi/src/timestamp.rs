@@ -3,6 +3,7 @@
 //! This wrapper allows custom type mapping per target language:
 //! - Kotlin: maps to `kotlinx.datetime.Instant`
 //! - Swift: maps to `Date`
+//!
 //! This unifies timestamp handling across JVM/Android and KMP bindings.
 //! This can be removed once we fully migrate to Kotlin Multiplatform and
 //! stop generating JVM/Android bindings.
