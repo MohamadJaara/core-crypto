@@ -67,10 +67,18 @@ jobs:
           # macOS target (already available on macOS runner)
           rustup target add aarch64-apple-darwin
 
+      - name: extract version from tag
+        id: version
+        run: |
+          # Extract version from tag (removes 'v' prefix if present)
+          VERSION="${GITHUB_REF_NAME#v}"
+          echo "VERSION=$VERSION" >> $GITHUB_OUTPUT
+          echo "Publishing version: $VERSION"
+
       - name: publish package
         working-directory: crypto-ffi/bindings/kmp
         run: |
-          ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache
+          ./gradlew publishAllPublicationsToMavenCentralRepository --no-configuration-cache -PVERSION_NAME=${{ steps.version.outputs.VERSION }}
         env:
           ANDROID_NDK_HOME: ${{ env.ANDROID_NDK_HOME }}
           ORG_GRADLE_PROJECT_mavenCentralUsername: ${{ secrets.SONATYPE_USERNAME }}
